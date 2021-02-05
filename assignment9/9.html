@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Craft Survey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function validate(event) {
+            //password validation has been taken from teacher's example code
+            var errors = [];
+            let password1 = document.getElementById("password1").value;
+            let password2 = document.getElementById("password2").value;
+            if (password1 != password2) {
+                errors.push("Passwords don't match");
+            }
+            if (!/^[ -~]{8,20}$/.test(password1)) {
+                errors.push("Password must be 8-20 ASCII characters.");
+            }
+            let message = "Passwords ok";
+            if (errors.length > 0) {
+                message = errors.join("\n");
+            }
+            var elem = document.getElementById("error_message");
+            elem.className = errors.length > 0 ? "error" : "valid";
+            elem.innerText = message;
+            //No idea how to invoke functions after validation.
+            if (errors.length == 0) {
+                printAll();
+                craftValue();
+                yarnThickness();
+                needleSize();
+            }
+            event.preventDefault();
+            return false;
+        }
+
+        function printAll() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+            let age = document.getElementById("age").value;
+            let date = document.getElementById("date").value;
+            let color = document.getElementById("color").value;
+            let time = document.getElementById("time").value;
+            let range = document.getElementById("id_range").value;
+            let url = document.getElementById("id_url").value;
+            let message = document.getElementById("id_message").value;
+
+            document.getElementById("result").innerHTML = "Your answers: </br>"
+            document.getElementById("result").innerHTML += "Name: " + name + "</br>";
+            document.getElementById("result").innerHTML += "Email: " + email + "</br>";
+            document.getElementById("result").innerHTML += "Phone: " + phone + "</br>";
+            document.getElementById("result").innerHTML += "Age: " + age + "</br>";
+            document.getElementById("result").innerHTML += "Date: " + date + "</br>";
+            document.getElementById("result").innerHTML += "Color:" + color + "</br>";
+            document.getElementById("result").innerHTML += "Crafting time: " + time + "</br>";
+            document.getElementById("result").innerHTML += "How much you love crafts: " + range + "%"+"</br>";
+            document.getElementById("result").innerHTML += "Website: " + url + "</br>";
+            document.getElementById("result").innerHTML += "Optional message: " + message + "</br>";
+    
+        }
+        function craftValue() {
+            let crafts = ["Crochet", "Knit", "Weave"];
+            let myCrafts = [];
+            let myResult = "";
+
+            for (let choice of document.getElementsByName("craft")) {
+                if (choice.checked && crafts.findIndex((x) => x == choice.value) != -1) {
+                    myCrafts.push(choice.value);
+                }
+            }
+            if (myCrafts.length) {
+                myResult = `Your craft is ${myCrafts.join(", ")}`;
+            } else {
+                myResult = "No craft selected";
+            }
+            document.getElementById("result2").innerHTML = myResult +"</br>";
+        }
+
+        function yarnThickness() {
+            let yarn = ["Fine", "DK/ Light Worsted", "Bulky"];
+            let myYarn = [];
+            let myResult = "";
+
+            for (let choice of document.getElementsByName("box")) {
+                if (choice.checked && yarn.findIndex((x) => x == choice.value) != -1) {
+                    myYarn.push(choice.value);
+                }
+            }
+            if (myYarn.length) {
+                myResult = `Your yarn thickness are: ${myYarn.join(", ")}`;
+            } else {
+                myResult = "No yarn selected";
+            }
+            document.getElementById("result3").innerHTML = myResult +"</br>";
+        }
+
+        function needleSize() {
+            let selectObj = document.getElementById("needle");
+            document.getElementById("result4").innerHTML = "Needle size: " + selectObj[selectObj.selectedIndex].text;
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>Craft Survey</h1>
+    <p id="error_message" class="valid"></p>
+    <form action="" name="questions" onsubmit="validate(event)">
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" autofocus required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required><br>
+        <label for="phone">Telephone number:</label>
+        <input type="tel" name="phone" id="phone" required><br>
+
+
+        <label for="password1">Password:</label>
+        <input type="password" size="20" id="password1" name="password1">
+        <br>
+        <label for="password2">Confirm password:</label>
+        <input type="password" size="20" id="password2" name="password2">
+        <br>
+        <label for="age">Your age:</label>
+        <input type="number" name="age" id="age" min="0" max="100"><br>
+
+        <label for="date">Current day:</label>
+        <input type="date" name="date" id="date"><br>
+
+        <fieldset>
+            <legend>Choose craft</legend>
+            <label for="crochet"><input type="radio" name="craft"  id="crochet" value="Crochet" checked>Crochet</label>
+            <label for="knit"><input type="radio" name="craft"  id="knit" value="Knit">Knit</label>
+            <label for="weave"><input type="radio" name="craft"  id="weave" value="Weave">Weave</label>
+        </fieldset><br>
+
+        <fieldset>
+            <legend>Yarn thickness</legend>
+            <label for="fine"><input type="checkbox" name="box" id="fine" value = "Fine"/>Fine</label>
+            <label for="dk"><input type="checkbox" name="box" id="dk" value ="DK/ Light Worsted"/>DK/ Light Worsted</label>
+            <label for="bulky"><input type="checkbox" name="box" id="bulky" value="Bulky"/>Bulky</label>
+        </fieldset><br>
+
+        <label for="color">Favorite yarn color</label>
+        <input type="color" name="color" id="color"><br>
+
+
+        <label for="time">What time do you usually craft?</label>
+        <input type="time" name="time" id="time"><br>
+
+
+        <label for="range">How much you love crafting?</label>
+        <input type="range" name="range" id="id_range" min="0" max=100 step="5" value="50"><br>
+
+        <label for="url">Favorite craft website:</label>
+        <input type="url" name="url" id="id_url"><br>
+
+        <label for="needle">Needle size:</label>
+        <select name="needle" id="needle"><br>
+            <option value=2 selected>2</option><br>
+            <option value=4>4</option><br>
+            <option value=5>6</option><br>
+        </select><br>
+
+        <label for="message">Message:</label><br>
+        <textarea name="message" id="id_message" cols="30" rows="10" maxlength="500"
+            placeholder="What else do you want to tell about your crafting"></textarea><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <output id="result"></output>
+    <output id="result2"></output>
+    <output id="result3"></output>
+    <output id="result4"></output>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+    <style>
+        #container {
+            padding: 3px;
+            max-width: 600px;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+    <script>
+        $(function () {
+            var euCountries = ["Austria", "Belgium", "Bulgaria", "Croatia", "Republic of Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", 
+            "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden"
+            ];
+            $("#country").autocomplete({
+                source: euCountries
+            });
+        });
+
+        $( function() {
+            $( "#week" ).datepicker({
+              showWeek: true,
+              firstDay: 1
+            });
+          } );
+
+          $( function() {
+            var handle = $( "#custom-handle" );
+            $( "#slider" ).slider({
+              create: function() {
+                handle.text( $( this ).slider( "value" ) );
+              },
+              slide: function( event, ui ) {
+                handle.text( ui.value );
+              }
+            });
+          } );
+
+        $(function () {
+            $("#sortable").sortable({
+                revert: true
+            });
+            $("ul, li").disableSelection();
+        });
+
+    </script>
+</head>
+
+<body>
+    <div id="container">
+        <form action="">
+            <label for="country">EU Country:</label>
+            <input type="text" id="country"><br>
+            <label for="week">Select a day:</label>
+            <input type="date" id="week"><br>
+            <label for="age">Age:</label>
+            <input type="range" id="age" min="0" max="140" step="1"><br>
+            <ul id="sortable">
+                <li><a href="#">Jett<br><img src="person1.jpg"></a></li>
+                <li><a href="#">Nola<br><img src="person2.jpg"></a></li>
+                <li><a href="#">Nikita<br><img src="person3.jpg"></a></li>
+            </ul>
+            <button>Send</button>
+        </form>
+    </div>
+</body>
+
+</html>
